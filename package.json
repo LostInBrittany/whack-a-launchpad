@@ -2,13 +2,24 @@
   "name": "whack-a-launchpad",
   "version": "1.1.0",
   "description": "Whack-a-mole inspired game using Novation Launchpad Mini",
+  "type": "module",
   "main": "whack-a-launchpad.js",
   "module": "whack-a-launchpad.js",
-  "scripts": {},
+  "scripts": {
+    "test": "wtr",
+    "test:watch": "wtr --watch"
+  },
   "repository": "git@github.com:LostInBrittany/whack-a-launchpad.git",
   "author": "Horacio Gonzalez <horacio.gonzalez@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@granite-elements/granite-launchpad": "^1.0.1",
     "launchpad-webmidi": "^2.0.0"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^5.0.0",
+    "@web/test-runner": "^1.0.0",
+    "@web/test-runner-playwright": "^1.0.0",
+    "playwright": "^1.63.0"
   }
 }
