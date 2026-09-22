@@ -45,7 +45,11 @@ found, no Web MIDI support, permission denied.
 `demo/` runs the same game against
 [`granite-launchpad`](https://github.com/LostInBrittany/granite-launchpad), a
 web component that mimics the Launchpad Mini, so you can play with nothing
-plugged in. Serve the repository as above and open one of:
+plugged in.
+
+<img src="./assets/whack-a-launchpad-demo.png" width="420" alt="A run in progress on the screen board: the grid glowing amber with one red target, the start button red, and the score column showing one cleared lamp in green and the next in amber.">
+
+Serve the repository as above and open one of:
 
 | Page | What it plays on |
 |---|---|
