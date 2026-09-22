@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whack-a-Launchpad – on screen</title>
+  <link rel="stylesheet" href="./demo.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "@granite-elements/granite-launchpad": "../node_modules/@granite-elements/granite-launchpad/index.js",
+        "lit": "../node_modules/lit/index.js",
+        "lit/": "../node_modules/lit/",
+        "@lit/reactive-element": "../node_modules/@lit/reactive-element/reactive-element.js",
+        "@lit/reactive-element/": "../node_modules/@lit/reactive-element/",
+        "lit-html": "../node_modules/lit-html/lit-html.js",
+        "lit-html/": "../node_modules/lit-html/",
+        "lit-element/lit-element.js": "../node_modules/lit-element/lit-element.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Whack-a-Launchpad</h1>
+  <p id="status">No hardware, no MIDI, no permission prompt – the whole game on screen.</p>
+
+  <granite-launchpad-board id="board"></granite-launchpad-board>
+
+  <p>Press the green button on the top row to start, then hit the red square
+     before it moves.</p>
+
+  <nav>
+    Playing on <code>&lt;granite-launchpad-board&gt;</code>.
+    Got a Launchpad Mini plugged in? <a href="./twin.html">Try the twin</a>.
+  </nav>
+
+  <script type="module">
+    import '@granite-elements/granite-launchpad';
+
+    import { createGame } from '../game.js';
+    import { boardPad } from './board-pad.js';
+
+    // The game is the same module the hardware page runs. All that changes is
+    // what it is handed: a board wrapped in the adapter instead of a Launchpad.
+    createGame( boardPad( document.querySelector( '#board' ) ) );
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whack-a-Launchpad – the twin</title>
+  <link rel="stylesheet" href="./demo.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "@granite-elements/granite-launchpad": "../node_modules/@granite-elements/granite-launchpad/index.js",
+        "@granite-elements/granite-launchpad/twin.js": "../node_modules/@granite-elements/granite-launchpad/twin.js",
+        "lit": "../node_modules/lit/index.js",
+        "lit/": "../node_modules/lit/",
+        "@lit/reactive-element": "../node_modules/@lit/reactive-element/reactive-element.js",
+        "@lit/reactive-element/": "../node_modules/@lit/reactive-element/",
+        "lit-html": "../node_modules/lit-html/lit-html.js",
+        "lit-html/": "../node_modules/lit-html/",
+        "lit-element/lit-element.js": "../node_modules/lit-element/lit-element.js",
+        "launchpad-webmidi": "../node_modules/launchpad-webmidi/dist/launchpad-webmidi.es.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Whack-a-Launchpad</h1>
+  <p id="status">Looking for a Launchpad – the board plays on screen either way.</p>
+
+  <granite-launchpad id="twin" auto-connect></granite-launchpad>
+
+  <p>Press the green button on the top row to start, then hit the red square
+     before it moves – on screen, on the hardware, or both at once.</p>
+
+  <nav>
+    Playing on <code>&lt;granite-launchpad&gt;</code>, the digital twin.
+    No Launchpad to hand? <a href="./index.html">The screen-only board</a>.
+  </nav>
+
+  <script type="module">
+    import '@granite-elements/granite-launchpad/twin.js';
+
+    import { createGame } from '../game.js';
+    import { boardPad, repaint } from './board-pad.js';
+
+    const twin = document.querySelector( '#twin' );
+    const status = document.querySelector( '#status' );
+
+    // Start straight away rather than waiting for the hardware. Connecting
+    // means a Web MIDI permission prompt, and a prompt nobody answers would
+    // otherwise leave the screen board dead as well.
+    //
+    // The one thing worth waiting for is the twin's first render: it paints
+    // through the board in its shadow root, and until that exists setColor()
+    // quietly does nothing - the opening board would be lost.
+    await twin.updateComplete;
+    createGame( boardPad( twin ) );
+
+    twin.addEventListener( 'launchpad-connect', () => {
+      status.textContent = 'Launchpad connected. Whack it on either side.';
+      // The board was painted before the hardware was listening, so send it.
+      repaint( twin );
+    } );
+
+    twin.addEventListener( 'launchpad-error', ( event ) => {
+      status.textContent =
+        `No Launchpad (${ event.detail.error }). The board still plays on screen.`;
+      // The twin keeps painting the board after the hardware goes away, so a
+      // run in progress carries on rather than dying with the MIDI port.
+    } );
+
+    // `state` is a reflected attribute precisely so a script that attached its
+    // listeners after auto-connect already finished is not left guessing.
+    if ( twin.state === 'connected' ) {
+      status.textContent = 'Launchpad connected. Whack it on either side.';
+      repaint( twin );
+    }
+  </script>
+</body>
+</html>

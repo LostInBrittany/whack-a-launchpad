@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A demo in `demo/`, playing the game against
+  [`@granite-elements/granite-launchpad`](https://github.com/LostInBrittany/granite-launchpad)
+  instead of a physical Launchpad. Two pages: `demo/index.html` on
+  `<granite-launchpad-board>`, screen only and with no MIDI at all, and
+  `demo/twin.html` on `<granite-launchpad>`, the digital twin, where a press on
+  either side reaches the game and a plugged-in Mini lights up with the screen.
+- `demo/board-pad.js`, an adapter presenting a granite-launchpad element
+  through the slice of the `launchpad-webmidi` interface the game uses, so the
+  same game code drives hardware or a screen without knowing which. The one
+  real translation is `reset(1)`: on hardware a single message meaning "all LEDs
+  low", on screen 80 pads painted `amber low`.
+- A test suite, run with [`@web/test-runner`](https://modern-web.dev/docs/test-runner/overview)
+  in headless Chromium: `npm test`. It covers the adapter, the game rules
+  played through it, and the twin catching up with hardware that connects late.
+
+### Changed
+
+- The game itself moved to `game.js` and now takes the pad it plays on:
+  `createGame( pad )`. `whack-a-launchpad.js` is the hardware entry point,
+  connecting a real Launchpad and handing it over. The rules, the layout and
+  the colours are unchanged, and `index.html` is untouched.
+- `showScore()` fills the Scene column in a loop rather than through a chain of
+  thirty-two comparisons. Same lamps, same thresholds.
+
+### Fixed
+
+- The next target never lands on the square the last one was on. The check was
+  there from the start, in a `getDifferentPosition( x, y )` whose do/while
+  compared the new position against its two arguments – but it was called as
+  `getDifferentPosition()`, so both were always `undefined`, nothing ever
+  matched and the loop never ran twice. Roughly one target in sixty-four asked
+  you to hit the pad your finger was already on.
+
 ## [1.1.0] – 2026-09-22
 
 ### Changed

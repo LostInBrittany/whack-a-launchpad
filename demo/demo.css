@@ -1,0 +1,59 @@
+:root {
+  color-scheme: dark;
+  --ink: #edeaf2;
+  --dim: #9b96a8;
+  --bg: #16151a;
+  --rule: #2c2a33;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0.25rem 0;
+  max-width: 34rem;
+  color: var(--dim);
+}
+
+#status {
+  min-height: 1.5em;
+  font-variant-numeric: tabular-nums;
+}
+
+granite-launchpad,
+granite-launchpad-board {
+  margin: 2rem 0;
+  /* The board is nine pads wide, so let it shrink rather than overflow. */
+  --granite-launchpad-pad-size: clamp(1.6rem, 8.5vw, 3rem);
+  --granite-launchpad-glow: 0 0 0.6rem currentColor;
+}
+
+nav {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  width: min(34rem, 100%);
+  font-size: 0.9rem;
+  color: var(--dim);
+}
+
+a {
+  color: inherit;
+}
