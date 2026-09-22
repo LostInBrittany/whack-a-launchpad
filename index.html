@@ -1,8 +1,16 @@
 <html>
     <head>
         <title>Whack-a-Launchpad</title>
+        <script type="importmap">
+        {
+            "imports": {
+                "launchpad-webmidi": "./node_modules/launchpad-webmidi/dist/launchpad-webmidi.es.js"
+            }
+        }
+        </script>
         <script type="module" src="./whack-a-launchpad.js"></script>
     </head>
     <body>
+        <p id="status"></p>
     </body>
 </html>
