@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] – 2026-09-22
+
 ### Added
 
 - A demo in `demo/`, playing the game against
@@ -91,6 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   button to start a run, an accelerating timer, and the Scene column as a score
   meter.
 
-[Unreleased]: https://github.com/LostInBrittany/whack-a-launchpad/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/LostInBrittany/whack-a-launchpad/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/LostInBrittany/whack-a-launchpad/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/LostInBrittany/whack-a-launchpad/compare/34593cd...1.1.0
 [1.0.0]: https://github.com/LostInBrittany/whack-a-launchpad/commit/5c96acd
